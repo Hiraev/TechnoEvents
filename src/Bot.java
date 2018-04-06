@@ -45,6 +45,7 @@ public class Bot extends TelegramLongPollingBot {
         return "/написать";
     }
 
+
     public void sendMsg(String message) {
         if (ids.isEmpty()) return;
         SendMessage sendMessage = new SendMessage()
