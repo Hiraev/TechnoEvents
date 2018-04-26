@@ -3,8 +3,11 @@ import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 
 public class Bot extends TelegramLongPollingBot {
     //https://monsterdeveloper.gitbooks.io/writing-telegram-bots-on-java/content/chapter1.html
@@ -12,10 +15,23 @@ public class Bot extends TelegramLongPollingBot {
 
     private static List<Long> ids = Arrays.asList(48392275L, 381797073L);
     private static String welcome = " , добро пожаловать в Технопарк!\nМы будем присылать Вам сообщения о наших событиях.";
+    private String token;
+    private String botUsername;
+
+    public Bot() {
+        try {
+            Properties properties = new Properties();
+            properties.load(new FileInputStream("resources/telegram.cfg"));
+            token = properties.getProperty("bot_token");
+            botUsername = properties.getProperty("bot_username");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public String getBotToken() {
-        return "/написать";
+        return token;
     }
 
     @Override
@@ -42,9 +58,8 @@ public class Bot extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        return "/написать";
+        return botUsername;
     }
-
 
     public void sendMsg(String message) {
         if (ids.isEmpty()) return;
