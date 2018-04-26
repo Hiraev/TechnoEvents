@@ -13,6 +13,8 @@
         <maven.surefire.plugin>2.19</maven.surefire.plugin>
         <java.version>1.8</java.version>
         <telegrambot.version>3.6</telegrambot.version>
+        <mysql.version>5.1.38</mysql.version>
+        <vk.version>0.5.12</vk.version>
     </properties>
     <dependencies>
         <dependency>
@@ -23,7 +25,12 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.38</version>
+            <version>${mysql.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.vk.api</groupId>
+            <artifactId>sdk</artifactId>
+            <version>${vk.version}</version>
         </dependency>
     </dependencies>
     <build>
