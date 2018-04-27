@@ -101,7 +101,7 @@
                             </outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>src/resources</directory>
+                                    <directory>resources</directory>
                                     <filtering>false</filtering>
                                     <includes>
                                         <include>*</include>
