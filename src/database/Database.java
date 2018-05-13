@@ -139,7 +139,8 @@ public class Database {
 	// Запрос к базе данных (команда)
 	// Без ответа
 	public void simpleQuery(String query) throws SQLException {
-		returnQuery(query);
+		Statement stmt = connection.createStatement();
+		stmt.executeUpdate(query);
 	}
 	
 	/*=========================================================================================*/
@@ -231,7 +232,7 @@ public class Database {
 	public List<Long> getAllChatIDs() {
 		StringBuffer sb = new StringBuffer();
 		sb
-			.append("SELECT `chat` FROM ")
+			.append("SELECT `chat` FROM `")
 			.append(dbName)
 			.append("`.`users`;");
 		
@@ -247,6 +248,49 @@ public class Database {
 		catch (SQLException e) { System.out.println("SQL query error.\n" + sb.toString()); }
 		
 		return resultlist;
+	}
+	
+	/**
+	*  Check, if userID exists
+	*
+	*  @return boolean value. If such userID exists
+	*  
+	*  @throws SQLException
+	*/
+	public boolean userIDExists(long userID) throws SQLException {
+		StringBuffer sb = new StringBuffer();
+		sb
+			.append("SELECT `id` FROM `")
+			.append(dbName)
+			.append("`.`users` WHERE `id` = '")
+			.append(Long.toString(userID))
+			.append("';");
+		
+		ResultSet res = returnQuery(sb.toString());
+		
+		return res.isBeforeFirst();
+	}
+	
+	
+	/**
+	*  Check, if chatID exists
+	*
+	*  @return boolean value. If such chatID exists
+	*  
+	*  @throws SQLException
+	*/
+	public boolean chatIDExists(long chatID) throws SQLException {
+		StringBuffer sb = new StringBuffer();
+		sb
+			.append("SELECT `chat` FROM `")
+			.append(dbName)
+			.append("`.`users` WHERE `chat` = '")
+			.append(Long.toString(chatID))
+			.append("';");
+		
+		ResultSet res = returnQuery(sb.toString());
+		
+		return res.isBeforeFirst();
 	}
 	
 	// Set<Long> getChatIDs()
