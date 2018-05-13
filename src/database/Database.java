@@ -138,7 +138,8 @@ public class Database {
 	// Запрос к базе данных (команда)
 	// Без ответа
 	public void simpleQuery(String query) throws SQLException {
-		returnQuery(query);
+		Statement stmt = connection.createStatement();
+		stmt.executeUpdate(query);
 	}
 	
 	/*=========================================================================================*/
@@ -230,7 +231,7 @@ public class Database {
 	public List<Long> getAllChatIDs() {
 		StringBuffer sb = new StringBuffer();
 		sb
-			.append("SELECT `chat` FROM ")
+			.append("SELECT `chat` FROM `")
 			.append(dbName)
 			.append("`.`users`;");
 		
