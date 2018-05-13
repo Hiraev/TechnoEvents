@@ -1,4 +1,4 @@
 @FunctionalInterface
 public interface Publish {
-    void publish(Post post, boolean isEvent);
+    void publish(Post post);
 }

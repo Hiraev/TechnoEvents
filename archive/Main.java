@@ -2,6 +2,9 @@ import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 
+//import database.Database;
+//import java.sql.ResultSet;
+
 public class Main {
     private Bot bot;
 
@@ -18,11 +21,11 @@ public class Main {
             e.printStackTrace();
         }
 
-        Publisher publisher = VkPublisher.getInstance();
+        Publisher publisher = TestPublisher.getInstance();
         publisher.start(this::sendPost);
     }
 
-    private void sendPost(Post post, boolean isEvent) {
-        bot.sendMsg(post.toString(), isEvent);
+    private void sendPost(Post post) {
+        bot.sendMsg(post.toString());
     }
 }
