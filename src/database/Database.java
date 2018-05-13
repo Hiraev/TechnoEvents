@@ -61,8 +61,7 @@ public class Database {
 		// Конфигурация соединения
 		Properties prop = new Properties();
 		// Читаю файл с конфигами
-		prop.load(new FileInputStream("target/resources/db_connection.cfg"));
-		
+		prop.load(new FileInputStream("resources/db_connection.cfg"));
 		// Назначить драйвер базы данных
 		Class.forName(prop.getProperty("driver").toString());
 		
