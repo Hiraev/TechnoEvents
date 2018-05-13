@@ -20,7 +20,7 @@ public class TestPublisher implements Publisher {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                publish.publish("Hello");
+                publish.publish(new Post("headline", "link"));
             }
         }, 0, 6L * 1000);
         System.out.println("Process launched");

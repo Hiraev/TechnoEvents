@@ -21,11 +21,11 @@ public class Main {
             e.printStackTrace();
         }
 
-        Publisher publisher = TestPublisher.getInstance();
+        Publisher publisher = new TestVkConnection();
         publisher.start(this::sendPost);
     }
 
-    private void sendPost(String post) {
-        bot.sendMsg(post);
+    private void sendPost(Post post) {
+        bot.sendMsg(post.toString());
     }
 }

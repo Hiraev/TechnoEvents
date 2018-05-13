@@ -1,4 +1,4 @@
 @FunctionalInterface
 public interface Publish {
-    void publish(String post);
+    void publish(Post post);
 }
