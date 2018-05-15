@@ -60,13 +60,18 @@ public class VkPublisher implements Publisher {
                     //Получаем последние 4 поста. Нулевым всегда идет закрепленный
                     List<WallPostFull> posts = vk.wall().get(actor).ownerId(-52224211).count(4).execute().getItems();
                     for (WallPostFull post : posts) {
+                        String postText = post.getText();
+                        //Если сообщение слишком длинное для телеграма
+                        if (postText.length() > 4096 / 8 - 70) {
+                            postText = postText.substring(0, 4096 / 8);
+                        }
                         if (!posted.contains(post.getId())) {
                             posted.add(post.getId());
                             String link = "https://vk.com/wall-52224211_" + String.valueOf(post.getId());
                             if (post.getText().contains(EVENT_HASHTAG)) {
-                                publish.publish(new Post(post.getText(), link), true);
+                                publish.publish(new Post(postText, link), true);
                             } else {
-                                publish.publish(new Post(post.getText(), link), false);
+                                publish.publish(new Post(postText, link), false);
                             }
                             //Если созранено уже больше 40 номеров записей, удаляем лишние
                             if (posted.size() > 40) {
@@ -79,7 +84,7 @@ public class VkPublisher implements Publisher {
                     e.printStackTrace();
                 }
             }
-        }, 0, 6L * 1000);
+        }, 0, 1000 * 60 * 60L); //Каждый час
         System.out.println("Process launched");
     }
 
